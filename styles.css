@@ -12,9 +12,9 @@ header{
   position:fixed; inset:0 0 auto 0; display:flex; align-items:center; justify-content:space-between;
   padding:10px 12px; background:var(--glass); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); z-index:2;
 }
-h1{margin:0; font-size:16px; letter-spacing:.5px}
-nav{display:flex; gap:8px}
-button{
+h1{margin:0; font-size:16px; letter-spacing:.6px}
+nav{display:flex; gap:8px; align-items:center}
+select,button{
   background:#121a3d; color:var(--ink); border:1px solid var(--line);
   padding:8px 10px; border-radius:10px; cursor:pointer; font:600 12px system-ui;
 }
