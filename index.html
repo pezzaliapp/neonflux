@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
-  <title>AURA LAB — Visual PWA</title>
-  <meta name="description" content="AURA LAB: Liquid Metal, HyperTunnel, Aurora Sky — WebGL PWA, offline, zero dipendenze.">
+  <title>Quantum Mirror — PWA</title>
+  <meta name="description" content="Spazio liquido riflettente che si deforma al tocco. 100% client-side, WebGL1, offline.">
   <meta name="theme-color" content="#0b1022">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
@@ -12,36 +12,35 @@
 </head>
 <body>
   <header>
-    <h1>AURA LAB</h1>
+    <h1>Quantum Mirror</h1>
     <nav>
-      <select id="modeSel" aria-label="Seleziona modalità">
-        <option>Liquid Metal</option>
-        <option>HyperTunnel</option>
-        <option>Aurora Sky</option>
-      </select>
-      <button id="btnPlay" title="Play/Pause">Pause</button>
-      <button id="btnMic" title="Audio reattivo">Mic OFF</button>
-      <button id="btnGyro" title="Giroscopio">Gyro OFF</button>
-      <button id="btnFull" title="Fullscreen">Fullscreen</button>
+      <button id="btnPlay">Pause</button>
+      <button id="btnQuality">Qualità: Med</button>
+      <button id="btnExport">Export PNG</button>
+      <button id="btnFull">Fullscreen</button>
       <button id="btnInstall" hidden>Installa</button>
     </nav>
   </header>
 
   <main>
-    <canvas id="view" aria-label="AURA LAB canvas" role="img"></canvas>
+    <!-- WebGL layer -->
+    <canvas id="gl" aria-label="Quantum Mirror WebGL" role="img"></canvas>
+    <!-- overlay 2D (solo per flash/particelle leggere) -->
+    <canvas id="fx" aria-hidden="true"></canvas>
+
     <div class="hud">
-      <span id="hudMode">Mode: Liquid Metal</span>
       <span id="fps">fps: 0</span>
+      <span>Touch per deformare</span>
     </div>
   </main>
 
   <footer>
-    <p>AURA LAB — MIT • 100% client-side • GitHub Pages + PWA offline</p>
+    <p>Quantum Mirror — MIT • 100% client-side • GitHub Pages + PWA offline</p>
   </footer>
 
   <script src="app.js"></script>
   <script>
-    // Install prompt
+    // Install prompt PWA
     let deferredPrompt=null;
     const btnInstall=document.getElementById('btnInstall');
     window.addEventListener('beforeinstallprompt',e=>{
@@ -53,7 +52,7 @@
       deferredPrompt=null; btnInstall.hidden=true;
     });
 
-    // SW
+    // Service Worker
     if('serviceWorker' in navigator){ navigator.serviceWorker.register('./sw.js'); }
   </script>
 </body>
