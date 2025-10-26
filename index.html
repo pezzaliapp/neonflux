@@ -3,39 +3,45 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
-  <title>NeonFlux — PWA</title>
+  <title>AURA LAB — Visual PWA</title>
+  <meta name="description" content="AURA LAB: Liquid Metal, HyperTunnel, Aurora Sky — WebGL PWA, offline, zero dipendenze.">
   <meta name="theme-color" content="#0b1022">
-  <meta name="description" content="NeonFlux: sculture di luce reattive al tocco. PWA offline-ready.">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header>
-    <h1>NeonFlux</h1>
+    <h1>AURA LAB</h1>
     <nav>
-      <button id="btnPlay">Pause</button>
-      <button id="btnMic">Mic OFF</button>
+      <select id="modeSel" aria-label="Seleziona modalità">
+        <option>Liquid Metal</option>
+        <option>HyperTunnel</option>
+        <option>Aurora Sky</option>
+      </select>
+      <button id="btnPlay" title="Play/Pause">Pause</button>
+      <button id="btnMic" title="Audio reattivo">Mic OFF</button>
+      <button id="btnGyro" title="Giroscopio">Gyro OFF</button>
+      <button id="btnFull" title="Fullscreen">Fullscreen</button>
       <button id="btnInstall" hidden>Installa</button>
-      <button id="btnFull">Fullscreen</button>
     </nav>
   </header>
 
   <main>
-    <canvas id="view" aria-label="NeonFlux canvas" role="img"></canvas>
+    <canvas id="view" aria-label="AURA LAB canvas" role="img"></canvas>
     <div class="hud">
-      <span id="mode">Mode: Neon</span>
+      <span id="hudMode">Mode: Liquid Metal</span>
       <span id="fps">fps: 0</span>
     </div>
   </main>
 
   <footer>
-    <p>NeonFlux — MIT • 100% client-side • GitHub Pages + PWA offline</p>
+    <p>AURA LAB — MIT • 100% client-side • GitHub Pages + PWA offline</p>
   </footer>
 
   <script src="app.js"></script>
   <script>
-    // PWA install prompt
+    // Install prompt
     let deferredPrompt=null;
     const btnInstall=document.getElementById('btnInstall');
     window.addEventListener('beforeinstallprompt',e=>{
@@ -43,13 +49,12 @@
     });
     btnInstall?.addEventListener('click', async ()=>{
       if(!deferredPrompt) return;
-      deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt=null; btnInstall.hidden=true;
+      deferredPrompt.prompt(); await deferredPrompt.userChoice;
+      deferredPrompt=null; btnInstall.hidden=true;
     });
 
-    // Service Worker
-    if('serviceWorker' in navigator){
-      navigator.serviceWorker.register('./sw.js');
-    }
+    // SW
+    if('serviceWorker' in navigator){ navigator.serviceWorker.register('./sw.js'); }
   </script>
 </body>
 </html>
