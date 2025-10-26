@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+  <title>NeonFlux — PWA</title>
+  <meta name="theme-color" content="#0b1022">
+  <meta name="description" content="NeonFlux: sculture di luce reattive al tocco. PWA offline-ready.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>NeonFlux</h1>
+    <nav>
+      <button id="btnPlay">Pause</button>
+      <button id="btnMic">Mic OFF</button>
+      <button id="btnInstall" hidden>Installa</button>
+      <button id="btnFull">Fullscreen</button>
+    </nav>
+  </header>
+
+  <main>
+    <canvas id="view" aria-label="NeonFlux canvas" role="img"></canvas>
+    <div class="hud">
+      <span id="mode">Mode: Neon</span>
+      <span id="fps">fps: 0</span>
+    </div>
+  </main>
+
+  <footer>
+    <p>NeonFlux — MIT • 100% client-side • GitHub Pages + PWA offline</p>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    // PWA install prompt
+    let deferredPrompt=null;
+    const btnInstall=document.getElementById('btnInstall');
+    window.addEventListener('beforeinstallprompt',e=>{
+      e.preventDefault(); deferredPrompt=e; btnInstall.hidden=false;
+    });
+    btnInstall?.addEventListener('click', async ()=>{
+      if(!deferredPrompt) return;
+      deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt=null; btnInstall.hidden=true;
+    });
+
+    // Service Worker
+    if('serviceWorker' in navigator){
+      navigator.serviceWorker.register('./sw.js');
+    }
+  </script>
+</body>
+</html>
